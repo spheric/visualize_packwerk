@@ -7,9 +7,6 @@
 # RSpec's top level namespace. All of rspec-expectations is contained
 # in the `RSpec::Expectations` and `RSpec::Matchers` namespaces.
 module RSpec
-  extend ::RSpec::Support::Warnings
-  extend ::RSpec::Core::Warnings
-
   class << self
     # Used to ensure examples get reloaded between multiple runs in the same
     # process and ensures user configuration is persisted.
@@ -303,6 +300,7 @@ class RSpec::Expectations::BlockSnippetExtractor::BlockLocator < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -387,6 +385,7 @@ class RSpec::Expectations::BlockSnippetExtractor::BlockTokenExtractor < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -748,6 +747,11 @@ class RSpec::Expectations::LegacyMatcherAdapter::RSpec2 < ::RSpec::Expectations:
 end
 
 # Exception raised from `aggregate_failures` when multiple expectations fail.
+#
+# @note The constant is defined here but the extensive logic of this class
+#   is lazily defined when `FailureAggregator` is autoloaded, since we do
+#   not need to waste time defining that functionality unless
+#   `aggregate_failures` is used.
 class RSpec::Expectations::MultipleExpectationsNotMetError < ::RSpec::Expectations::ExpectationNotMetError
   # @return [MultipleExpectationsNotMetError] a new instance of MultipleExpectationsNotMetError
   def initialize(failure_aggregator); end
@@ -2669,7 +2673,7 @@ module RSpec::Matchers
 
   private
 
-  def method_missing(method, *args, &block); end
+  def method_missing(method, *args, **_arg2, &block); end
 
   # @return [Boolean]
   def respond_to_missing?(method, *_arg1); end
@@ -4021,6 +4025,7 @@ class RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer::Solution < ::
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -4146,7 +4151,7 @@ class RSpec::Matchers::BuiltIn::DynamicPredicate < ::RSpec::Matchers::BuiltIn::B
 
   # @api private
   # @return [DynamicPredicate] a new instance of DynamicPredicate
-  def initialize(method_name, *args, &block); end
+  def initialize(method_name, *args, **_arg2, &block); end
 
   # @api private
   # @return [String]
@@ -5714,6 +5719,7 @@ class RSpec::Matchers::Composable::DescribableItem < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -6071,7 +6077,7 @@ class RSpec::Matchers::DSL::Matcher
   # rspec-rails so that it can define matchers that wrap
   # Rails' test helper methods, but it's also a useful
   # feature in its own right.
-  def method_missing(method, *args, &block); end
+  def method_missing(method, *args, **_arg2, &block); end
 
   # Indicates that this matcher responds to messages
   # from the `@matcher_execution_context` as well.

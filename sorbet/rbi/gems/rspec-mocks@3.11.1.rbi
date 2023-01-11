@@ -7,9 +7,6 @@
 # Share the top-level RSpec namespace, because we are a core supported
 # extension.
 module RSpec
-  extend ::RSpec::Support::Warnings
-  extend ::RSpec::Core::Warnings
-
   class << self
     # Used to ensure examples get reloaded between multiple runs in the same
     # process and ensures user configuration is persisted.
@@ -232,7 +229,7 @@ class RSpec::Mocks::AndWrapOriginalImplementation
   # @return [AndWrapOriginalImplementation] a new instance of AndWrapOriginalImplementation
   def initialize(method, block); end
 
-  def call(*args, &block); end
+  def call(*args, **_arg1, &block); end
   def initial_action=(_value); end
   def inner_action; end
   def inner_action=(_value); end
@@ -740,7 +737,7 @@ class RSpec::Mocks::ArgumentListMatcher
   # @return [ArgumentListMatcher] a new instance of ArgumentListMatcher
   # @see ArgumentMatchers
   # @see #args_match?
-  def initialize(*expected_args); end
+  def initialize(*expected_args, **_arg1); end
 
   # Matches each element in the `expected_args` against the element in the same
   # position of the arguments passed to `new`.
@@ -749,7 +746,7 @@ class RSpec::Mocks::ArgumentListMatcher
   # @param actual_args [Array]
   # @return [Boolean]
   # @see #initialize
-  def args_match?(*actual_args); end
+  def args_match?(*actual_args, **_arg1); end
 
   # @private
   def expected_args; end
@@ -987,6 +984,10 @@ class RSpec::Mocks::ArgumentMatchers::SingletonMatcher
   class << self
     # @private
     def inherited(subklass); end
+
+    private
+
+    def new(*_arg0); end
   end
 end
 
@@ -1891,7 +1892,7 @@ RSpec::Mocks::IGNORED_BACKTRACE_LINE = T.let(T.unsafe(nil), String)
 #
 # @private
 class RSpec::Mocks::Implementation
-  def call(*args, &block); end
+  def call(*args, **_arg1, &block); end
 
   # Returns the value of attribute initial_action.
   def initial_action; end
@@ -2091,34 +2092,34 @@ class RSpec::Mocks::Matchers::Receive
   # @return [Receive] a new instance of Receive
   def initialize(message, block); end
 
-  def and_call_original(*args, &block); end
-  def and_invoke(*args, &block); end
-  def and_raise(*args, &block); end
-  def and_return(*args, &block); end
-  def and_throw(*args, &block); end
-  def and_wrap_original(*args, &block); end
-  def and_yield(*args, &block); end
-  def at_least(*args, &block); end
-  def at_most(*args, &block); end
+  def and_call_original(*args, **_arg1, &block); end
+  def and_invoke(*args, **_arg1, &block); end
+  def and_raise(*args, **_arg1, &block); end
+  def and_return(*args, **_arg1, &block); end
+  def and_throw(*args, **_arg1, &block); end
+  def and_wrap_original(*args, **_arg1, &block); end
+  def and_yield(*args, **_arg1, &block); end
+  def at_least(*args, **_arg1, &block); end
+  def at_most(*args, **_arg1, &block); end
   def description; end
   def does_not_match?(subject, &block); end
-  def exactly(*args, &block); end
+  def exactly(*args, **_arg1, &block); end
   def matches?(subject, &block); end
   def name; end
-  def never(*args, &block); end
-  def once(*args, &block); end
-  def ordered(*args, &block); end
+  def never(*args, **_arg1, &block); end
+  def once(*args, **_arg1, &block); end
+  def ordered(*args, **_arg1, &block); end
   def setup_allowance(subject, &block); end
   def setup_any_instance_allowance(subject, &block); end
   def setup_any_instance_expectation(subject, &block); end
   def setup_any_instance_negative_expectation(subject, &block); end
   def setup_expectation(subject, &block); end
   def setup_negative_expectation(subject, &block); end
-  def thrice(*args, &block); end
-  def time(*args, &block); end
-  def times(*args, &block); end
-  def twice(*args, &block); end
-  def with(*args, &block); end
+  def thrice(*args, **_arg1, &block); end
+  def time(*args, **_arg1, &block); end
+  def times(*args, **_arg1, &block); end
+  def twice(*args, **_arg1, &block); end
+  def with(*args, **_arg1, &block); end
 
   private
 
@@ -2463,7 +2464,7 @@ class RSpec::Mocks::MessageExpectation
   #   cart.add(Book.new(:isbn => 1934356379))
   #   # => passes
   # @return [MessageExpectation] self, to support further chaining.
-  def with(*args, &block); end
+  def with(*args, **_arg1, &block); end
 end
 
 # Contains the parts of `MessageExpectation` that aren't part of
@@ -2512,11 +2513,11 @@ module RSpec::Mocks::MessageExpectation::ImplementationDetails
   def implementation; end
 
   def increase_actual_received_count!; end
-  def invoke(parent_stub, *args, &block); end
-  def invoke_without_incrementing_received_count(parent_stub, *args, &block); end
+  def invoke(parent_stub, *args, **_arg2, &block); end
+  def invoke_without_incrementing_received_count(parent_stub, *args, **_arg2, &block); end
 
   # @return [Boolean]
-  def matches?(message, *args); end
+  def matches?(message, *args, **_arg2); end
 
   # @return [Boolean]
   def matches_at_least_count?; end
@@ -2546,7 +2547,7 @@ module RSpec::Mocks::MessageExpectation::ImplementationDetails
 
   def raise_out_of_order_error; end
   def raise_unexpected_message_args_error(args_for_multiple_calls); end
-  def safe_invoke(parent_stub, *args, &block); end
+  def safe_invoke(parent_stub, *args, **_arg2, &block); end
   def similar_messages; end
 
   # @private
@@ -2589,7 +2590,7 @@ module RSpec::Mocks::MessageExpectation::ImplementationDetails
 
   def initial_implementation_action=(action); end
   def inner_implementation_action=(action); end
-  def invoke_incrementing_actual_calls_by(increment, allowed_to_fail, parent_stub, *args, &block); end
+  def invoke_incrementing_actual_calls_by(increment, allowed_to_fail, parent_stub, *args, **_arg4, &block); end
   def raise_already_invoked_error_if_necessary(calling_customization); end
   def set_expected_received_count(relativity, n); end
   def terminal_implementation_action=(action); end
@@ -2665,7 +2666,7 @@ class RSpec::Mocks::MethodDouble
   # method to perform additional operations.
   #
   # @private
-  def proxy_method_invoked(_obj, *args, &block); end
+  def proxy_method_invoked(_obj, *args, **_arg2, &block); end
 
   # @private
   def raise_method_not_stubbed_error; end
@@ -2991,7 +2992,7 @@ class RSpec::Mocks::PartialDoubleProxy < ::RSpec::Mocks::Proxy
   # @private
   def add_simple_stub(method_name, response); end
 
-  def message_received(message, *args, &block); end
+  def message_received(message, *args, **_arg2, &block); end
   def original_method_handle_for(message); end
   def reset; end
 
@@ -3046,7 +3047,7 @@ class RSpec::Mocks::Proxy
   def has_negative_expectation?(message); end
 
   # @private
-  def message_received(message, *args, &block); end
+  def message_received(message, *args, **_arg2, &block); end
 
   # @private
   def messages_arg_list; end
@@ -3099,11 +3100,11 @@ class RSpec::Mocks::Proxy
 
   private
 
-  def find_almost_matching_expectation(method_name, *args); end
-  def find_almost_matching_stub(method_name, *args); end
+  def find_almost_matching_expectation(method_name, *args, **_arg2); end
+  def find_almost_matching_stub(method_name, *args, **_arg2); end
   def find_best_matching_expectation_for(method_name); end
-  def find_matching_expectation(method_name, *args); end
-  def find_matching_method_stub(method_name, *args); end
+  def find_matching_expectation(method_name, *args, **_arg2); end
+  def find_matching_method_stub(method_name, *args, **_arg2); end
   def method_double_for(message); end
 
   class << self
@@ -3153,6 +3154,7 @@ class RSpec::Mocks::Proxy::SpecificMessage < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end

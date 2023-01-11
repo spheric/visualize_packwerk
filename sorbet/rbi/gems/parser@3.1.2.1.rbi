@@ -560,1037 +560,228 @@ end
 # @api public
 module Parser::Builders; end
 
-# Default AST builder. Uses {AST::Node}s.
-#
-# @api public
 class Parser::Builders::Default
-  # Initializes attributes:
-  #
-  #   * `emit_file_line_as_literals`: `true`
-  #
-  # @api public
-  # @return [Default] a new instance of Default
   def initialize; end
 
-  # @api public
   def __ENCODING__(__ENCODING__t); end
-
-  # @api public
   def __FILE__(__FILE__t); end
-
-  # @api public
   def __LINE__(__LINE__t); end
-
-  # @api public
   def accessible(node); end
-
-  # @api public
   def alias(alias_t, to, from); end
-
-  # @api public
   def arg(name_t); end
-
-  # Ruby 1.8 block arguments
-  #
-  # @api public
   def arg_expr(expr); end
-
-  # Formal arguments
-  #
-  # @api public
   def args(begin_t, args, end_t, check_args = T.unsafe(nil)); end
-
-  # Arrays
-  #
-  # @api public
   def array(begin_t, elements, end_t); end
-
-  # @api public
   def array_pattern(lbrack_t, elements, rbrack_t); end
-
-  # @api public
   def assign(lhs, eql_t, rhs); end
-
-  # Assignment
-  #
-  # @api public
   def assignable(node); end
-
-  # @api public
   def associate(begin_t, pairs, end_t); end
-
-  # @api public
   def attr_asgn(receiver, dot_t, selector_t); end
-
-  # @api public
   def back_ref(token); end
-
-  # @api public
   def begin(begin_t, body, end_t); end
-
-  # @api public
   def begin_body(compound_stmt, rescue_bodies = T.unsafe(nil), else_t = T.unsafe(nil), else_ = T.unsafe(nil), ensure_t = T.unsafe(nil), ensure_ = T.unsafe(nil)); end
-
-  # @api public
   def begin_keyword(begin_t, body, end_t); end
-
-  # @api public
   def binary_op(receiver, operator_t, arg); end
-
-  # @api public
   def block(method_call, begin_t, args, body, end_t); end
-
-  # @api public
   def block_pass(amper_t, arg); end
-
-  # @api public
   def blockarg(amper_t, name_t); end
-
-  # @api public
   def blockarg_expr(amper_t, expr); end
-
-  # @api public
   def call_lambda(lambda_t); end
-
-  # @api public
   def call_method(receiver, dot_t, selector_t, lparen_t = T.unsafe(nil), args = T.unsafe(nil), rparen_t = T.unsafe(nil)); end
-
-  # Method calls
-  #
-  # @api public
   def call_type_for_dot(dot_t); end
-
-  # @api public
   def case(case_t, expr, when_bodies, else_t, else_body, end_t); end
-
-  # PATTERN MATCHING
-  #
-  # @api public
   def case_match(case_t, expr, in_bodies, else_t, else_body, end_t); end
-
-  # @api public
   def character(char_t); end
-
-  # @api public
   def complex(complex_t); end
-
-  # Expression grouping
-  #
-  # @api public
   def compstmt(statements); end
-
-  # Conditionals
-  #
-  # @api public
   def condition(cond_t, cond, then_t, if_true, else_t, if_false, end_t); end
-
-  # @api public
   def condition_mod(if_true, if_false, cond_t, cond); end
-
-  # @api public
   def const(name_t); end
-
-  # @api public
   def const_fetch(scope, t_colon2, name_t); end
-
-  # @api public
   def const_global(t_colon3, name_t); end
-
-  # @api public
   def const_op_assignable(node); end
-
-  # @api public
   def const_pattern(const, ldelim_t, pattern, rdelim_t); end
-
-  # @api public
   def cvar(token); end
-
-  # Indented (interpolated, noninterpolated, executable) strings
-  #
-  # @api public
   def dedent_string(node, dedent_level); end
-
-  # Class and module definition
-  #
-  # @api public
   def def_class(class_t, name, lt_t, superclass, body, end_t); end
-
-  # @api public
   def def_endless_method(def_t, name_t, args, assignment_t, body); end
-
-  # @api public
   def def_endless_singleton(def_t, definee, dot_t, name_t, args, assignment_t, body); end
-
-  # Method (un)definition
-  #
-  # @api public
   def def_method(def_t, name_t, args, body, end_t); end
-
-  # @api public
   def def_module(module_t, name, body, end_t); end
-
-  # @api public
   def def_sclass(class_t, lshft_t, expr, body, end_t); end
-
-  # @api public
   def def_singleton(def_t, definee, dot_t, name_t, args, body, end_t); end
-
-  # If set to true (the default), `__FILE__` and `__LINE__` are transformed to
-  # literal nodes. For example, `s(:str, "lib/foo.rb")` and `s(:int, 10)`.
-  #
-  # If set to false, `__FILE__` and `__LINE__` are emitted as-is,
-  # i.e. as `s(:__FILE__)` and `s(:__LINE__)` nodes.
-  #
-  # Source maps are identical in both cases.
-  #
-  # @api public
-  # @return [Boolean]
   def emit_file_line_as_literals; end
-
-  # If set to true (the default), `__FILE__` and `__LINE__` are transformed to
-  # literal nodes. For example, `s(:str, "lib/foo.rb")` and `s(:int, 10)`.
-  #
-  # If set to false, `__FILE__` and `__LINE__` are emitted as-is,
-  # i.e. as `s(:__FILE__)` and `s(:__LINE__)` nodes.
-  #
-  # Source maps are identical in both cases.
-  #
-  # @api public
-  # @return [Boolean]
   def emit_file_line_as_literals=(_arg0); end
-
-  # @api public
   def false(false_t); end
-
-  # @api public
   def find_pattern(lbrack_t, elements, rbrack_t); end
-
-  # @api public
   def float(float_t); end
-
-  # @api public
   def for(for_t, iterator, in_t, iteratee, do_t, body, end_t); end
-
-  # @api public
   def forward_arg(dots_t); end
-
-  # @api public
   def forward_only_args(begin_t, dots_t, end_t); end
-
-  # @api public
   def forwarded_args(dots_t); end
-
-  # @api public
   def gvar(token); end
-
-  # @api public
   def hash_pattern(lbrace_t, kwargs, rbrace_t); end
-
-  # @api public
   def ident(token); end
-
-  # @api public
   def if_guard(if_t, if_body); end
-
-  # @api public
   def in_match(lhs, in_t, rhs); end
-
-  # @api public
   def in_pattern(in_t, pattern, guard, then_t, body); end
-
-  # @api public
   def index(receiver, lbrack_t, indexes, rbrack_t); end
-
-  # @api public
   def index_asgn(receiver, lbrack_t, indexes, rbrack_t); end
-
-  # Numerics
-  #
-  # @api public
   def integer(integer_t); end
-
-  # @api public
   def ivar(token); end
-
-  # Keywords
-  #
-  # @api public
   def keyword_cmd(type, keyword_t, lparen_t = T.unsafe(nil), args = T.unsafe(nil), rparen_t = T.unsafe(nil)); end
-
-  # @api public
   def kwarg(name_t); end
-
-  # @api public
   def kwnilarg(dstar_t, nil_t); end
-
-  # @api public
   def kwoptarg(name_t, value); end
-
-  # @api public
   def kwrestarg(dstar_t, name_t = T.unsafe(nil)); end
-
-  # @api public
   def kwsplat(dstar_t, arg); end
-
-  # Logical operations: and, or
-  #
-  # @api public
   def logical_op(type, lhs, op_t, rhs); end
-
-  # Loops
-  #
-  # @api public
   def loop(type, keyword_t, cond, do_t, body, end_t); end
-
-  # @api public
   def loop_mod(type, body, keyword_t, cond); end
-
-  # @api public
   def match_alt(left, pipe_t, right); end
-
-  # @api public
   def match_as(value, assoc_t, as); end
-
-  # @api public
   def match_hash_var(name_t); end
-
-  # @api public
   def match_hash_var_from_str(begin_t, strings, end_t); end
-
-  # @api public
   def match_label(label_type, label); end
-
-  # @api public
   def match_nil_pattern(dstar_t, nil_t); end
-
-  # @api public
   def match_op(receiver, match_t, arg); end
-
-  # @api public
   def match_pair(label_type, label, value); end
-
-  # @api public
   def match_pattern(lhs, match_t, rhs); end
-
-  # @api public
   def match_pattern_p(lhs, match_t, rhs); end
-
-  # @api public
   def match_rest(star_t, name_t = T.unsafe(nil)); end
-
-  # @api public
   def match_var(name_t); end
-
-  # @api public
   def match_with_trailing_comma(match, comma_t); end
-
-  # @api public
   def multi_assign(lhs, eql_t, rhs); end
-
-  # @api public
   def multi_lhs(begin_t, items, end_t); end
-
-  # Singletons
-  #
-  # @api public
   def nil(nil_t); end
-
-  # @api public
   def not_op(not_t, begin_t = T.unsafe(nil), receiver = T.unsafe(nil), end_t = T.unsafe(nil)); end
-
-  # @api public
   def nth_ref(token); end
-
-  # @api public
   def numargs(max_numparam); end
-
-  # MacRuby Objective-C arguments
-  #
-  # @api public
   def objc_kwarg(kwname_t, assoc_t, name_t); end
-
-  # @api public
   def objc_restarg(star_t, name = T.unsafe(nil)); end
-
-  # @api public
   def objc_varargs(pair, rest_of_varargs); end
-
-  # @api public
   def op_assign(lhs, op_t, rhs); end
-
-  # @api public
   def optarg(name_t, eql_t, value); end
-
-  # Hashes
-  #
-  # @api public
   def pair(key, assoc_t, value); end
-
-  # @api public
   def pair_keyword(key_t, value); end
-
-  # @api public
   def pair_label(key_t); end
-
-  # @api public
   def pair_list_18(list); end
-
-  # @api public
   def pair_quoted(begin_t, parts, end_t, value); end
-
-  # @api private
   def parser; end
-
-  # @api private
   def parser=(_arg0); end
-
-  # @api public
   def pin(pin_t, var); end
-
-  # @api public
   def postexe(postexe_t, lbrace_t, compstmt, rbrace_t); end
-
-  # BEGIN, END
-  #
-  # @api public
   def preexe(preexe_t, lbrace_t, compstmt, rbrace_t); end
-
-  # @api public
   def procarg0(arg); end
-
-  # @api public
   def range_exclusive(lhs, dot3_t, rhs); end
-
-  # Ranges
-  #
-  # @api public
   def range_inclusive(lhs, dot2_t, rhs); end
-
-  # @api public
   def rational(rational_t); end
-
-  # @api public
   def regexp_compose(begin_t, parts, end_t, options); end
-
-  # Regular expressions
-  #
-  # @api public
   def regexp_options(regopt_t); end
-
-  # Exception handling
-  #
-  # @api public
   def rescue_body(rescue_t, exc_list, assoc_t, exc_var, then_t, compound_stmt); end
-
-  # @api public
   def restarg(star_t, name_t = T.unsafe(nil)); end
-
-  # @api public
   def restarg_expr(star_t, expr = T.unsafe(nil)); end
-
-  # Access
-  #
-  # @api public
   def self(token); end
-
-  # @api public
   def shadowarg(name_t); end
-
-  # @api public
   def splat(star_t, arg = T.unsafe(nil)); end
-
-  # Strings
-  #
-  # @api public
   def string(string_t); end
-
-  # @api public
   def string_compose(begin_t, parts, end_t); end
-
-  # @api public
   def string_internal(string_t); end
-
-  # Symbols
-  #
-  # @api public
   def symbol(symbol_t); end
-
-  # @api public
   def symbol_compose(begin_t, parts, end_t); end
-
-  # @api public
   def symbol_internal(symbol_t); end
-
-  # @api public
   def symbols_compose(begin_t, parts, end_t); end
-
-  # @api public
   def ternary(cond, question_t, if_true, colon_t, if_false); end
-
-  # @api public
   def true(true_t); end
-
-  # @api public
   def unary_num(unary_t, numeric); end
-
-  # @api public
   def unary_op(op_t, receiver); end
-
-  # @api public
   def undef_method(undef_t, names); end
-
-  # @api public
   def unless_guard(unless_t, unless_body); end
-
-  # Case matching
-  #
-  # @api public
   def when(when_t, patterns, then_t, body); end
-
-  # @api public
   def word(parts); end
-
-  # @api public
   def words_compose(begin_t, parts, end_t); end
-
-  # Executable strings
-  #
-  # @api public
   def xstring_compose(begin_t, parts, end_t); end
 
   private
 
-  # @api public
-  # @return [Boolean]
   def arg_name_collides?(this_name, that_name); end
-
-  # @api public
   def arg_prefix_map(op_t, name_t = T.unsafe(nil)); end
-
-  # @api public
   def binary_op_map(left_e, op_t, right_e); end
-
-  # @api public
   def block_map(receiver_l, begin_t, end_t); end
-
-  # @api public
   def check_assignment_to_numparam(name, loc); end
-
-  # VERIFICATION
-  #
-  # @api public
   def check_condition(cond); end
-
-  # @api public
   def check_duplicate_arg(this_arg, map = T.unsafe(nil)); end
-
-  # @api public
   def check_duplicate_args(args, map = T.unsafe(nil)); end
-
-  # @api public
   def check_duplicate_pattern_key(name, loc); end
-
-  # @api public
   def check_duplicate_pattern_variable(name, loc); end
-
-  # @api public
   def check_lvar_name(name, loc); end
-
-  # @api public
   def check_reserved_for_numparam(name, loc); end
-
-  # @api public
-  # @return [Boolean]
   def collapse_string_parts?(parts); end
-
-  # @api public
   def collection_map(begin_t, parts, end_t); end
-
-  # @api public
   def condition_map(keyword_t, cond_e, begin_t, body_e, else_t, else_e, end_t); end
-
-  # @api public
   def constant_map(scope, colon2_t, name_t); end
-
-  # @api public
   def definition_map(keyword_t, operator_t, name_t, end_t); end
-
-  # @api public
   def delimited_string_map(string_t); end
-
-  # @api public
   def diagnostic(type, reason, arguments, location, highlights = T.unsafe(nil)); end
-
-  # @api public
   def eh_keyword_map(compstmt_e, keyword_t, body_es, else_t, else_e); end
-
-  # @api public
   def endless_definition_map(keyword_t, operator_t, name_t, assignment_t, body_e); end
-
-  # @api public
   def expr_map(loc); end
-
-  # @api public
   def for_map(keyword_t, in_t, begin_t, end_t); end
-
-  # @api public
   def guard_map(keyword_t, guard_body_e); end
-
-  # @api public
   def index_map(receiver_e, lbrack_t, rbrack_t); end
-
-  # @api public
   def join_exprs(left_expr, right_expr); end
-
-  # @api public
   def keyword_map(keyword_t, begin_t, args, end_t); end
-
-  # @api public
   def keyword_mod_map(pre_e, keyword_t, post_e); end
-
-  # @api public
   def kwarg_map(name_t, value_e = T.unsafe(nil)); end
-
-  # @api public
-  # @return [Boolean]
   def kwargs?(node); end
-
-  # @api public
   def loc(token); end
-
-  # @api public
   def module_definition_map(keyword_t, name_e, operator_t, end_t); end
-
-  # SOURCE MAPS
-  #
-  # @api public
   def n(type, children, source_map); end
-
-  # @api public
   def n0(type, source_map); end
-
-  # @api public
   def numeric(kind, token); end
-
-  # @api public
   def pair_keyword_map(key_t, value_e); end
-
-  # @api public
   def pair_quoted_map(begin_t, end_t, value_e); end
-
-  # @api public
   def prefix_string_map(symbol); end
-
-  # @api public
   def range_map(start_e, op_t, end_e); end
-
-  # @api public
   def regexp_map(begin_t, end_t, options_e); end
-
-  # @api public
   def rescue_body_map(keyword_t, exc_list_e, assoc_t, exc_var_e, then_t, compstmt_e); end
-
-  # @api public
   def rewrite_hash_args_to_kwargs(args); end
-
-  # @api public
   def send_binary_op_map(lhs_e, selector_t, rhs_e); end
-
-  # @api public
   def send_index_map(receiver_e, lbrack_t, rbrack_t); end
-
-  # @api public
   def send_map(receiver_e, dot_t, selector_t, begin_t = T.unsafe(nil), args = T.unsafe(nil), end_t = T.unsafe(nil)); end
-
-  # @api public
   def send_unary_op_map(selector_t, arg_e); end
-
-  # @api public
   def static_regexp(parts, options); end
-
-  # @api public
   def static_regexp_node(node); end
-
-  # Extract a static string from e.g. a regular expression,
-  # honoring the fact that MRI expands interpolations like #{""}
-  # at parse time.
-  #
-  # @api public
   def static_string(nodes); end
-
-  # @api public
   def string_map(begin_t, parts, end_t); end
-
-  # @api public
   def string_value(token); end
-
-  # @api public
   def ternary_map(begin_e, question_t, mid_e, colon_t, end_e); end
-
-  # @api public
   def token_map(token); end
-
-  # @api public
   def unary_op_map(op_t, arg_e = T.unsafe(nil)); end
-
-  # @api public
   def unquoted_map(token); end
-
-  # @api public
   def validate_definee(definee); end
-
-  # @api public
   def validate_no_forward_arg_after_restarg(args); end
-
-  # @api public
   def value(token); end
-
-  # @api public
   def var_send_map(variable_e); end
-
-  # @api public
   def variable_map(name_t); end
 
   class << self
-    # AST compatibility attribute; causes a single non-mlhs
-    # block argument to be wrapped in s(:procarg0).
-    #
-    # If set to false (the default), block arguments `|a|` are emitted as
-    # `s(:args, s(:procarg0, :a))`
-    #
-    # If set to true, block arguments `|a|` are emitted as
-    # `s(:args, s(:procarg0, s(:arg, :a))`
-    #
-    # @api public
-    # @return [Boolean]
     def emit_arg_inside_procarg0; end
-
-    # AST compatibility attribute; causes a single non-mlhs
-    # block argument to be wrapped in s(:procarg0).
-    #
-    # If set to false (the default), block arguments `|a|` are emitted as
-    # `s(:args, s(:procarg0, :a))`
-    #
-    # If set to true, block arguments `|a|` are emitted as
-    # `s(:args, s(:procarg0, s(:arg, :a))`
-    #
-    # @api public
-    # @return [Boolean]
     def emit_arg_inside_procarg0=(_arg0); end
-
-    # AST compatibility attribute; locations of `__ENCODING__` are not the same
-    # as locations of `Encoding::UTF_8` causing problems during rewriting,
-    # all new code should set this attribute to true.
-    #
-    # If set to false (the default), `__ENCODING__` is emitted as
-    # ` s(:const, s(:const, nil, :Encoding), :UTF_8)`.
-    #
-    # If set to true, `__ENCODING__` is emitted as
-    # `s(:__ENCODING__)`.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_encoding; end
-
-    # AST compatibility attribute; locations of `__ENCODING__` are not the same
-    # as locations of `Encoding::UTF_8` causing problems during rewriting,
-    # all new code should set this attribute to true.
-    #
-    # If set to false (the default), `__ENCODING__` is emitted as
-    # ` s(:const, s(:const, nil, :Encoding), :UTF_8)`.
-    #
-    # If set to true, `__ENCODING__` is emitted as
-    # `s(:__ENCODING__)`.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_encoding=(_arg0); end
-
-    # AST compatibility attribute; arguments forwarding initially
-    # didn't have support for leading arguments
-    # (i.e. `def m(a, ...); end` was a syntax error). However, Ruby 3.0
-    # added support for any number of arguments in front of the `...`.
-    #
-    # If set to false (the default):
-    #   1. `def m(...) end` is emitted as
-    #      s(:def, :m, s(:forward_args), nil)
-    #   2. `def m(a, b, ...) end` is emitted as
-    #      s(:def, :m,
-    #        s(:args, s(:arg, :a), s(:arg, :b), s(:forward_arg)))
-    #
-    # If set to true it uses a single format:
-    #   1. `def m(...) end` is emitted as
-    #      s(:def, :m, s(:args, s(:forward_arg)))
-    #   2. `def m(a, b, ...) end` is emitted as
-    #      s(:def, :m, s(:args, s(:arg, :a), s(:arg, :b), s(:forward_arg)))
-    #
-    # It does't matter that much on 2.7 (because there can't be any leading arguments),
-    # but on 3.0 it should be better enabled to use a single AST format.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_forward_arg; end
-
-    # AST compatibility attribute; arguments forwarding initially
-    # didn't have support for leading arguments
-    # (i.e. `def m(a, ...); end` was a syntax error). However, Ruby 3.0
-    # added support for any number of arguments in front of the `...`.
-    #
-    # If set to false (the default):
-    #   1. `def m(...) end` is emitted as
-    #      s(:def, :m, s(:forward_args), nil)
-    #   2. `def m(a, b, ...) end` is emitted as
-    #      s(:def, :m,
-    #        s(:args, s(:arg, :a), s(:arg, :b), s(:forward_arg)))
-    #
-    # If set to true it uses a single format:
-    #   1. `def m(...) end` is emitted as
-    #      s(:def, :m, s(:args, s(:forward_arg)))
-    #   2. `def m(a, b, ...) end` is emitted as
-    #      s(:def, :m, s(:args, s(:arg, :a), s(:arg, :b), s(:forward_arg)))
-    #
-    # It does't matter that much on 2.7 (because there can't be any leading arguments),
-    # but on 3.0 it should be better enabled to use a single AST format.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_forward_arg=(_arg0); end
-
-    # AST compatibility attribute; indexed assignment, `x[] = 1`, is not
-    # semantically equivalent to calling the method directly, `x.[]=(1)`.
-    # Specifically, in the former case, the expression's value is always 1,
-    # and in the latter case, the expression's value is the return value
-    # of the `[]=` method.
-    #
-    # If set to false (the default), `self[1]` is emitted as
-    # `s(:send, s(:self), :[], s(:int, 1))`, and `self[1] = 2` is
-    # emitted as `s(:send, s(:self), :[]=, s(:int, 1), s(:int, 2))`.
-    #
-    # If set to true, `self[1]` is emitted as
-    # `s(:index, s(:self), s(:int, 1))`, and `self[1] = 2` is
-    # emitted as `s(:indexasgn, s(:self), s(:int, 1), s(:int, 2))`.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_index; end
-
-    # AST compatibility attribute; indexed assignment, `x[] = 1`, is not
-    # semantically equivalent to calling the method directly, `x.[]=(1)`.
-    # Specifically, in the former case, the expression's value is always 1,
-    # and in the latter case, the expression's value is the return value
-    # of the `[]=` method.
-    #
-    # If set to false (the default), `self[1]` is emitted as
-    # `s(:send, s(:self), :[], s(:int, 1))`, and `self[1] = 2` is
-    # emitted as `s(:send, s(:self), :[]=, s(:int, 1), s(:int, 2))`.
-    #
-    # If set to true, `self[1]` is emitted as
-    # `s(:index, s(:self), s(:int, 1))`, and `self[1] = 2` is
-    # emitted as `s(:indexasgn, s(:self), s(:int, 1), s(:int, 2))`.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_index=(_arg0); end
-
-    # AST compatibility attribute; Starting from Ruby 2.7 keyword arguments
-    # of method calls that are passed explicitly as a hash (i.e. with curly braces)
-    # are treated as positional arguments and Ruby 2.7 emits a warning on such method
-    # call. Ruby 3.0 given an ArgumentError.
-    #
-    # If set to false (the default) the last hash argument is emitted as `hash`:
-    #
-    # ```
-    # (send nil :foo
-    #   (hash
-    #     (pair
-    #       (sym :bar)
-    #       (int 42))))
-    # ```
-    #
-    # If set to true it is emitted as `kwargs`:
-    #
-    # ```
-    # (send nil :foo
-    #   (kwargs
-    #     (pair
-    #       (sym :bar)
-    #       (int 42))))
-    # ```
-    #
-    # Note that `kwargs` node is just a replacement for `hash` argument,
-    # so if there's are multiple arguments (or a `kwsplat`) all of them
-    # are wrapped into `kwargs` instead of `hash`:
-    #
-    # ```
-    # (send nil :foo
-    #   (kwargs
-    #     (pair
-    #       (sym :a)
-    #       (int 42))
-    #     (kwsplat
-    #       (send nil :b))
-    #     (pair
-    #       (sym :c)
-    #       (int 10))))
-    # ```
-    #
-    # @api public
     def emit_kwargs; end
-
-    # AST compatibility attribute; Starting from Ruby 2.7 keyword arguments
-    # of method calls that are passed explicitly as a hash (i.e. with curly braces)
-    # are treated as positional arguments and Ruby 2.7 emits a warning on such method
-    # call. Ruby 3.0 given an ArgumentError.
-    #
-    # If set to false (the default) the last hash argument is emitted as `hash`:
-    #
-    # ```
-    # (send nil :foo
-    #   (hash
-    #     (pair
-    #       (sym :bar)
-    #       (int 42))))
-    # ```
-    #
-    # If set to true it is emitted as `kwargs`:
-    #
-    # ```
-    # (send nil :foo
-    #   (kwargs
-    #     (pair
-    #       (sym :bar)
-    #       (int 42))))
-    # ```
-    #
-    # Note that `kwargs` node is just a replacement for `hash` argument,
-    # so if there's are multiple arguments (or a `kwsplat`) all of them
-    # are wrapped into `kwargs` instead of `hash`:
-    #
-    # ```
-    # (send nil :foo
-    #   (kwargs
-    #     (pair
-    #       (sym :a)
-    #       (int 42))
-    #     (kwsplat
-    #       (send nil :b))
-    #     (pair
-    #       (sym :c)
-    #       (int 10))))
-    # ```
-    #
-    # @api public
     def emit_kwargs=(_arg0); end
-
-    # AST compatibility attribute; since `-> {}` is not semantically
-    # equivalent to `lambda {}`, all new code should set this attribute
-    # to true.
-    #
-    # If set to false (the default), `-> {}` is emitted as
-    # `s(:block, s(:send, nil, :lambda), s(:args), nil)`.
-    #
-    # If set to true, `-> {}` is emitted as
-    # `s(:block, s(:lambda), s(:args), nil)`.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_lambda; end
-
-    # AST compatibility attribute; since `-> {}` is not semantically
-    # equivalent to `lambda {}`, all new code should set this attribute
-    # to true.
-    #
-    # If set to false (the default), `-> {}` is emitted as
-    # `s(:block, s(:send, nil, :lambda), s(:args), nil)`.
-    #
-    # If set to true, `-> {}` is emitted as
-    # `s(:block, s(:lambda), s(:args), nil)`.
-    #
-    # @api public
-    # @return [Boolean]
     def emit_lambda=(_arg0); end
-
-    # AST compatibility attribute; Starting from 3.0 Ruby returns
-    # true/false from single-line pattern matching with `in` keyword.
-    #
-    # Before 3.0 there was an exception if given value doesn't match pattern.
-    #
-    # NOTE: This attribute affects only Ruby 2.7 grammar.
-    # 3.0 grammar always emits `match_pattern`/`match_pattern_p`
-    #
-    # If compatibility attribute set to false `foo in bar` is emitted as `in_match`:
-    #
-    # ```
-    # (in-match
-    #   (send nil :foo)
-    #   (match-var :bar))
-    # ```
-    #
-    # If set to true it's emitted as `match_pattern_p`:
-    # ```
-    # (match-pattern-p
-    #   (send nil :foo)
-    #   (match-var :bar))
-    # ```
-    #
-    # @api public
     def emit_match_pattern; end
-
-    # AST compatibility attribute; Starting from 3.0 Ruby returns
-    # true/false from single-line pattern matching with `in` keyword.
-    #
-    # Before 3.0 there was an exception if given value doesn't match pattern.
-    #
-    # NOTE: This attribute affects only Ruby 2.7 grammar.
-    # 3.0 grammar always emits `match_pattern`/`match_pattern_p`
-    #
-    # If compatibility attribute set to false `foo in bar` is emitted as `in_match`:
-    #
-    # ```
-    # (in-match
-    #   (send nil :foo)
-    #   (match-var :bar))
-    # ```
-    #
-    # If set to true it's emitted as `match_pattern_p`:
-    # ```
-    # (match-pattern-p
-    #   (send nil :foo)
-    #   (match-var :bar))
-    # ```
-    #
-    # @api public
     def emit_match_pattern=(_arg0); end
-
-    # AST compatibility attribute; block arguments of `m { |a| }` are
-    # not semantically equivalent to block arguments of `m { |a,| }` or `m { |a, b| }`,
-    # all new code should set this attribute to true.
-    #
-    # If set to false (the default), arguments of `m { |a| }` are emitted as
-    # `s(:args, s(:arg, :a))`.
-    #
-    # If set to true, arguments of `m { |a| }` are emitted as
-    # `s(:args, s(:procarg0, :a)).
-    #
-    # @api public
-    # @return [Boolean]
     def emit_procarg0; end
-
-    # AST compatibility attribute; block arguments of `m { |a| }` are
-    # not semantically equivalent to block arguments of `m { |a,| }` or `m { |a, b| }`,
-    # all new code should set this attribute to true.
-    #
-    # If set to false (the default), arguments of `m { |a| }` are emitted as
-    # `s(:args, s(:arg, :a))`.
-    #
-    # If set to true, arguments of `m { |a| }` are emitted as
-    # `s(:args, s(:procarg0, :a)).
-    #
-    # @api public
-    # @return [Boolean]
     def emit_procarg0=(_arg0); end
-
-    # @api private
     def modernize; end
   end
 end
@@ -1615,10 +806,7 @@ class Parser::ClobberingError < ::RuntimeError; end
 #                    if you need to handle the first argument check `lex_state == expr_fname`
 # + :block - in the block body (tap {})
 # + :lambda - in the lambda body (-> {})
-#
-# @api public
 class Parser::Context
-  # @api public
   # @return [Context] a new instance of Context
   def initialize; end
 
@@ -1633,7 +821,6 @@ class Parser::Context
   def in_defined; end
   def in_defined=(_arg0); end
 
-  # @api public
   # @return [Boolean]
   def in_dynamic_block?; end
 
@@ -1641,12 +828,9 @@ class Parser::Context
   def in_kwarg=(_arg0); end
   def in_lambda; end
   def in_lambda=(_arg0); end
-
-  # @api public
   def reset; end
 end
 
-# @api public
 Parser::Context::FLAGS = T.let(T.unsafe(nil), Array)
 
 # Stack that holds names of current arguments,
@@ -1869,382 +1053,422 @@ Parser::Diagnostic::LEVELS = T.let(T.unsafe(nil), Array)
 #  * If you proceed past EOF, the lexer will complain:
 #
 #       NoMethodError: undefined method `ord' for nil:NilClass
-#
-# @api public
 class Parser::Lexer
-  # @api public
   # @return [Lexer] a new instance of Lexer
   def initialize(version); end
 
   # Return next token: [type, value].
-  #
-  # @api public
   def advance; end
 
-  # @api public
+  # Returns the value of attribute cmdarg.
   def cmdarg; end
 
-  # @api public
+  # Sets the attribute cmdarg
+  #
+  # @param value the value to set the attribute cmdarg to.
   def cmdarg=(_arg0); end
 
-  # @api public
+  # Returns the value of attribute cmdarg_stack.
   def cmdarg_stack; end
 
-  # @api public
+  # Returns the value of attribute command_start.
   def command_start; end
 
-  # @api public
+  # Sets the attribute command_start
+  #
+  # @param value the value to set the attribute command_start to.
   def command_start=(_arg0); end
 
-  # @api public
+  # Returns the value of attribute comments.
   def comments; end
 
-  # @api public
+  # Sets the attribute comments
+  #
+  # @param value the value to set the attribute comments to.
   def comments=(_arg0); end
 
-  # @api public
+  # Returns the value of attribute cond.
   def cond; end
 
-  # @api public
+  # Sets the attribute cond
+  #
+  # @param value the value to set the attribute cond to.
   def cond=(_arg0); end
 
-  # @api public
+  # Returns the value of attribute cond_stack.
   def cond_stack; end
 
-  # @api public
+  # Returns the value of attribute context.
   def context; end
 
-  # @api public
+  # Sets the attribute context
+  #
+  # @param value the value to set the attribute context to.
   def context=(_arg0); end
 
-  # @api public
   def dedent_level; end
 
-  # @api public
+  # Returns the value of attribute diagnostics.
   def diagnostics; end
 
-  # @api public
+  # Sets the attribute diagnostics
+  #
+  # @param value the value to set the attribute diagnostics to.
   def diagnostics=(_arg0); end
 
-  # @api public
   def encoding; end
 
-  # @api public
+  # Returns the value of attribute force_utf32.
   def force_utf32; end
 
-  # @api public
+  # Sets the attribute force_utf32
+  #
+  # @param value the value to set the attribute force_utf32 to.
   def force_utf32=(_arg0); end
 
-  # @api public
+  # Returns the value of attribute lambda_stack.
   def lambda_stack; end
 
-  # @api public
+  # Returns the value of attribute paren_nest.
   def paren_nest; end
 
-  # @api public
   def pop_cmdarg; end
-
-  # @api public
   def pop_cond; end
-
-  # @api public
   def push_cmdarg; end
-
-  # @api public
   def push_cond; end
-
-  # @api public
   def reset(reset_state = T.unsafe(nil)); end
 
-  # @api public
+  # Returns the value of attribute source_buffer.
   def source_buffer; end
 
-  # @api public
   def source_buffer=(source_buffer); end
-
-  # @api public
   def state; end
-
-  # @api public
   def state=(state); end
 
-  # @api public
+  # Returns the value of attribute static_env.
   def static_env; end
 
-  # @api public
+  # Sets the attribute static_env
+  #
+  # @param value the value to set the attribute static_env to.
   def static_env=(_arg0); end
 
-  # @api public
+  # Returns the value of attribute tokens.
   def tokens; end
 
-  # @api public
+  # Sets the attribute tokens
+  #
+  # @param value the value to set the attribute tokens to.
   def tokens=(_arg0); end
 
   protected
 
-  # @api public
   def arg_or_cmdarg(cmd_state); end
-
-  # @api public
   def diagnostic(type, reason, arguments = T.unsafe(nil), location = T.unsafe(nil), highlights = T.unsafe(nil)); end
-
-  # @api public
   def emit(type, value = T.unsafe(nil), s = T.unsafe(nil), e = T.unsafe(nil)); end
-
-  # @api public
   def emit_comment(s = T.unsafe(nil), e = T.unsafe(nil)); end
-
-  # @api public
   def emit_do(do_block = T.unsafe(nil)); end
-
-  # @api public
   def emit_table(table, s = T.unsafe(nil), e = T.unsafe(nil)); end
-
-  # @api public
   def encode_escape(ord); end
 
-  # @api public
   # @return [Boolean]
   def eof_codepoint?(point); end
 
-  # @api public
   def literal; end
-
-  # @api public
   def next_state_for_literal(literal); end
-
-  # @api public
   def pop_literal; end
 
   # === LITERAL STACK ===
-  #
-  # @api public
   def push_literal(*args); end
 
-  # @api public
   def range(s = T.unsafe(nil), e = T.unsafe(nil)); end
-
-  # @api public
   def stack_pop; end
-
-  # @api public
   def tok(s = T.unsafe(nil), e = T.unsafe(nil)); end
 
-  # @api public
   # @return [Boolean]
   def version?(*versions); end
 
   class << self
-    # @api public
+    # Returns the value of attribute lex_en_expr_arg.
     def lex_en_expr_arg; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_arg
+    #
+    # @param value the value to set the attribute lex_en_expr_arg to.
     def lex_en_expr_arg=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_beg.
     def lex_en_expr_beg; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_beg
+    #
+    # @param value the value to set the attribute lex_en_expr_beg to.
     def lex_en_expr_beg=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_cmdarg.
     def lex_en_expr_cmdarg; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_cmdarg
+    #
+    # @param value the value to set the attribute lex_en_expr_cmdarg to.
     def lex_en_expr_cmdarg=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_dot.
     def lex_en_expr_dot; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_dot
+    #
+    # @param value the value to set the attribute lex_en_expr_dot to.
     def lex_en_expr_dot=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_end.
     def lex_en_expr_end; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_end
+    #
+    # @param value the value to set the attribute lex_en_expr_end to.
     def lex_en_expr_end=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_endarg.
     def lex_en_expr_endarg; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_endarg
+    #
+    # @param value the value to set the attribute lex_en_expr_endarg to.
     def lex_en_expr_endarg=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_endfn.
     def lex_en_expr_endfn; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_endfn
+    #
+    # @param value the value to set the attribute lex_en_expr_endfn to.
     def lex_en_expr_endfn=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_fname.
     def lex_en_expr_fname; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_fname
+    #
+    # @param value the value to set the attribute lex_en_expr_fname to.
     def lex_en_expr_fname=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_labelarg.
     def lex_en_expr_labelarg; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_labelarg
+    #
+    # @param value the value to set the attribute lex_en_expr_labelarg to.
     def lex_en_expr_labelarg=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_mid.
     def lex_en_expr_mid; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_mid
+    #
+    # @param value the value to set the attribute lex_en_expr_mid to.
     def lex_en_expr_mid=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_value.
     def lex_en_expr_value; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_value
+    #
+    # @param value the value to set the attribute lex_en_expr_value to.
     def lex_en_expr_value=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_expr_variable.
     def lex_en_expr_variable; end
 
-    # @api public
+    # Sets the attribute lex_en_expr_variable
+    #
+    # @param value the value to set the attribute lex_en_expr_variable to.
     def lex_en_expr_variable=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_interp_backslash_delimited.
     def lex_en_interp_backslash_delimited; end
 
-    # @api public
+    # Sets the attribute lex_en_interp_backslash_delimited
+    #
+    # @param value the value to set the attribute lex_en_interp_backslash_delimited to.
     def lex_en_interp_backslash_delimited=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_interp_backslash_delimited_words.
     def lex_en_interp_backslash_delimited_words; end
 
-    # @api public
+    # Sets the attribute lex_en_interp_backslash_delimited_words
+    #
+    # @param value the value to set the attribute lex_en_interp_backslash_delimited_words to.
     def lex_en_interp_backslash_delimited_words=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_interp_string.
     def lex_en_interp_string; end
 
-    # @api public
+    # Sets the attribute lex_en_interp_string
+    #
+    # @param value the value to set the attribute lex_en_interp_string to.
     def lex_en_interp_string=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_interp_words.
     def lex_en_interp_words; end
 
-    # @api public
+    # Sets the attribute lex_en_interp_words
+    #
+    # @param value the value to set the attribute lex_en_interp_words to.
     def lex_en_interp_words=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_leading_dot.
     def lex_en_leading_dot; end
 
-    # @api public
+    # Sets the attribute lex_en_leading_dot
+    #
+    # @param value the value to set the attribute lex_en_leading_dot to.
     def lex_en_leading_dot=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_line_begin.
     def lex_en_line_begin; end
 
-    # @api public
+    # Sets the attribute lex_en_line_begin
+    #
+    # @param value the value to set the attribute lex_en_line_begin to.
     def lex_en_line_begin=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_line_comment.
     def lex_en_line_comment; end
 
-    # @api public
+    # Sets the attribute lex_en_line_comment
+    #
+    # @param value the value to set the attribute lex_en_line_comment to.
     def lex_en_line_comment=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_plain_backslash_delimited.
     def lex_en_plain_backslash_delimited; end
 
-    # @api public
+    # Sets the attribute lex_en_plain_backslash_delimited
+    #
+    # @param value the value to set the attribute lex_en_plain_backslash_delimited to.
     def lex_en_plain_backslash_delimited=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_plain_backslash_delimited_words.
     def lex_en_plain_backslash_delimited_words; end
 
-    # @api public
+    # Sets the attribute lex_en_plain_backslash_delimited_words
+    #
+    # @param value the value to set the attribute lex_en_plain_backslash_delimited_words to.
     def lex_en_plain_backslash_delimited_words=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_plain_string.
     def lex_en_plain_string; end
 
-    # @api public
+    # Sets the attribute lex_en_plain_string
+    #
+    # @param value the value to set the attribute lex_en_plain_string to.
     def lex_en_plain_string=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_plain_words.
     def lex_en_plain_words; end
 
-    # @api public
+    # Sets the attribute lex_en_plain_words
+    #
+    # @param value the value to set the attribute lex_en_plain_words to.
     def lex_en_plain_words=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_en_regexp_modifiers.
     def lex_en_regexp_modifiers; end
 
-    # @api public
+    # Sets the attribute lex_en_regexp_modifiers
+    #
+    # @param value the value to set the attribute lex_en_regexp_modifiers to.
     def lex_en_regexp_modifiers=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_error.
     def lex_error; end
 
-    # @api public
+    # Sets the attribute lex_error
+    #
+    # @param value the value to set the attribute lex_error to.
     def lex_error=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute lex_start.
     def lex_start; end
 
-    # @api public
+    # Sets the attribute lex_start
+    #
+    # @param value the value to set the attribute lex_start to.
     def lex_start=(_arg0); end
 
     private
 
-    # @api public
+    # Returns the value of attribute _lex_eof_trans.
     def _lex_eof_trans; end
 
-    # @api public
+    # Sets the attribute _lex_eof_trans
+    #
+    # @param value the value to set the attribute _lex_eof_trans to.
     def _lex_eof_trans=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_from_state_actions.
     def _lex_from_state_actions; end
 
-    # @api public
+    # Sets the attribute _lex_from_state_actions
+    #
+    # @param value the value to set the attribute _lex_from_state_actions to.
     def _lex_from_state_actions=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_index_offsets.
     def _lex_index_offsets; end
 
-    # @api public
+    # Sets the attribute _lex_index_offsets
+    #
+    # @param value the value to set the attribute _lex_index_offsets to.
     def _lex_index_offsets=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_indicies.
     def _lex_indicies; end
 
-    # @api public
+    # Sets the attribute _lex_indicies
+    #
+    # @param value the value to set the attribute _lex_indicies to.
     def _lex_indicies=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_key_spans.
     def _lex_key_spans; end
 
-    # @api public
+    # Sets the attribute _lex_key_spans
+    #
+    # @param value the value to set the attribute _lex_key_spans to.
     def _lex_key_spans=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_to_state_actions.
     def _lex_to_state_actions; end
 
-    # @api public
+    # Sets the attribute _lex_to_state_actions
+    #
+    # @param value the value to set the attribute _lex_to_state_actions to.
     def _lex_to_state_actions=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_trans_actions.
     def _lex_trans_actions; end
 
-    # @api public
+    # Sets the attribute _lex_trans_actions
+    #
+    # @param value the value to set the attribute _lex_trans_actions to.
     def _lex_trans_actions=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_trans_keys.
     def _lex_trans_keys; end
 
-    # @api public
+    # Sets the attribute _lex_trans_keys
+    #
+    # @param value the value to set the attribute _lex_trans_keys to.
     def _lex_trans_keys=(_arg0); end
 
-    # @api public
+    # Returns the value of attribute _lex_trans_targs.
     def _lex_trans_targs; end
 
-    # @api public
+    # Sets the attribute _lex_trans_targs
+    #
+    # @param value the value to set the attribute _lex_trans_targs to.
     def _lex_trans_targs=(_arg0); end
   end
 end
@@ -2259,17 +1483,10 @@ end
 Parser::Lexer::Dedenter::TAB_WIDTH = T.let(T.unsafe(nil), Integer)
 
 # %
-#
-# @api public
 Parser::Lexer::ESCAPES = T.let(T.unsafe(nil), Hash)
 
-# @api public
 Parser::Lexer::KEYWORDS = T.let(T.unsafe(nil), Hash)
-
-# @api public
 Parser::Lexer::KEYWORDS_BEGIN = T.let(T.unsafe(nil), Hash)
-
-# @api public
 Parser::Lexer::LEX_STATES = T.let(T.unsafe(nil), Hash)
 
 class Parser::Lexer::Literal
@@ -2312,14 +1529,9 @@ Parser::Lexer::Literal::DELIMITERS = T.let(T.unsafe(nil), Hash)
 Parser::Lexer::Literal::TYPES = T.let(T.unsafe(nil), Hash)
 
 # Mapping of strings to parser tokens.
-#
-# @api public
 Parser::Lexer::PUNCTUATION = T.let(T.unsafe(nil), Hash)
 
-# @api public
 Parser::Lexer::PUNCTUATION_BEGIN = T.let(T.unsafe(nil), Hash)
-
-# @api public
 Parser::Lexer::REGEXP_META_CHARACTERS = T.let(T.unsafe(nil), Regexp)
 
 class Parser::Lexer::StackState
@@ -2402,14 +1614,10 @@ module Parser::Messages
 end
 
 # Parser metadata
-#
-# @api public
 module Parser::Meta; end
 
 # All node types that parser can produce. Not all parser versions
 # will be able to produce every possible node.
-#
-# @api public
 Parser::Meta::NODE_TYPES = T.let(T.unsafe(nil), Set)
 
 # {Parser::Rewriter} is deprecated. Use {Parser::TreeRewriter} instead.
@@ -2908,278 +2116,144 @@ class Parser::Source::Map
   def initialize_copy(other); end
 end
 
-# @api public
 class Parser::Source::Map::Collection < ::Parser::Source::Map
-  # @api public
-  # @return [Collection] a new instance of Collection
   def initialize(begin_l, end_l, expression_l); end
 
-  # @api public
   def begin; end
-
-  # @api public
   def end; end
 end
 
-# @api public
 class Parser::Source::Map::Condition < ::Parser::Source::Map
-  # @api public
-  # @return [Condition] a new instance of Condition
   def initialize(keyword_l, begin_l, else_l, end_l, expression_l); end
 
-  # @api public
   def begin; end
-
-  # @api public
   def else; end
-
-  # @api public
   def end; end
-
-  # @api public
   def keyword; end
 end
 
-# @api public
 class Parser::Source::Map::Constant < ::Parser::Source::Map
-  # @api public
-  # @return [Constant] a new instance of Constant
   def initialize(double_colon, name, expression); end
 
-  # @api public
   def double_colon; end
-
-  # @api public
   def name; end
-
-  # @api public
   def operator; end
-
-  # @api private
   def with_operator(operator_l); end
 
   protected
 
-  # @api public
   def update_operator(operator_l); end
 end
 
-# @api public
 class Parser::Source::Map::Definition < ::Parser::Source::Map
-  # @api public
-  # @return [Definition] a new instance of Definition
   def initialize(keyword_l, operator_l, name_l, end_l); end
 
-  # @api public
   def end; end
-
-  # @api public
   def keyword; end
-
-  # @api public
   def name; end
-
-  # @api public
   def operator; end
 end
 
-# @api public
 class Parser::Source::Map::For < ::Parser::Source::Map
-  # @api public
-  # @return [For] a new instance of For
   def initialize(keyword_l, in_l, begin_l, end_l, expression_l); end
 
-  # @api public
   def begin; end
-
-  # @api public
   def end; end
-
-  # @api public
   def in; end
-
-  # @api public
   def keyword; end
 end
 
-# @api public
 class Parser::Source::Map::Heredoc < ::Parser::Source::Map
-  # @api public
-  # @return [Heredoc] a new instance of Heredoc
   def initialize(begin_l, body_l, end_l); end
 
-  # @api public
   def heredoc_body; end
-
-  # @api public
   def heredoc_end; end
 end
 
-# @api public
 class Parser::Source::Map::Index < ::Parser::Source::Map
-  # @api public
-  # @return [Index] a new instance of Index
   def initialize(begin_l, end_l, expression_l); end
 
-  # @api public
   def begin; end
-
-  # @api public
   def end; end
-
-  # @api public
   def operator; end
-
-  # @api private
   def with_operator(operator_l); end
 
   protected
 
-  # @api public
   def update_operator(operator_l); end
 end
 
-# @api public
 class Parser::Source::Map::Keyword < ::Parser::Source::Map
-  # @api public
-  # @return [Keyword] a new instance of Keyword
   def initialize(keyword_l, begin_l, end_l, expression_l); end
 
-  # @api public
   def begin; end
-
-  # @api public
   def end; end
-
-  # @api public
   def keyword; end
 end
 
-# @api public
 class Parser::Source::Map::MethodDefinition < ::Parser::Source::Map
-  # @api public
-  # @return [MethodDefinition] a new instance of MethodDefinition
   def initialize(keyword_l, operator_l, name_l, end_l, assignment_l, body_l); end
 
-  # @api public
   def assignment; end
-
-  # @api public
   def end; end
-
-  # @api public
   def keyword; end
-
-  # @api public
   def name; end
-
-  # @api public
   def operator; end
 end
 
-# @api public
 class Parser::Source::Map::ObjcKwarg < ::Parser::Source::Map
-  # @api public
-  # @return [ObjcKwarg] a new instance of ObjcKwarg
   def initialize(keyword_l, operator_l, argument_l, expression_l); end
 
-  # @api public
   def argument; end
-
-  # @api public
   def keyword; end
-
-  # @api public
   def operator; end
 end
 
-# @api public
 class Parser::Source::Map::Operator < ::Parser::Source::Map
-  # @api public
-  # @return [Operator] a new instance of Operator
   def initialize(operator, expression); end
 
-  # @api public
   def operator; end
 end
 
-# @api public
 class Parser::Source::Map::RescueBody < ::Parser::Source::Map
-  # @api public
-  # @return [RescueBody] a new instance of RescueBody
   def initialize(keyword_l, assoc_l, begin_l, expression_l); end
 
-  # @api public
   def assoc; end
-
-  # @api public
   def begin; end
-
-  # @api public
   def keyword; end
 end
 
-# @api public
 class Parser::Source::Map::Send < ::Parser::Source::Map
-  # @api public
-  # @return [Send] a new instance of Send
   def initialize(dot_l, selector_l, begin_l, end_l, expression_l); end
 
-  # @api public
   def begin; end
-
-  # @api public
   def dot; end
-
-  # @api public
   def end; end
-
-  # @api public
   def operator; end
-
-  # @api public
   def selector; end
-
-  # @api private
   def with_operator(operator_l); end
 
   protected
 
-  # @api public
   def update_operator(operator_l); end
 end
 
-# @api public
 class Parser::Source::Map::Ternary < ::Parser::Source::Map
-  # @api public
-  # @return [Ternary] a new instance of Ternary
   def initialize(question_l, colon_l, expression_l); end
 
-  # @api public
   def colon; end
-
-  # @api public
   def question; end
 end
 
-# @api public
 class Parser::Source::Map::Variable < ::Parser::Source::Map
-  # @api public
-  # @return [Variable] a new instance of Variable
   def initialize(name_l, expression_l = T.unsafe(nil)); end
 
-  # @api public
   def name; end
-
-  # @api public
   def operator; end
-
-  # @api private
   def with_operator(operator_l); end
 
   protected
 
-  # @api public
   def update_operator(operator_l); end
 end
 
@@ -3947,117 +3021,34 @@ end
 # @api public
 Parser::Source::TreeRewriter::ACTIONS = T.let(T.unsafe(nil), Array)
 
-# Actions are arranged in a tree and get combined so that:
-#   children are strictly contained by their parent
-#   sibblings all disjoint from one another and ordered
-#   only actions with replacement==nil may have children
-#
-# @api private
 class Parser::Source::TreeRewriter::Action
-  # @api private
-  # @return [Action] a new instance of Action
   def initialize(range, enforcer, insert_before: T.unsafe(nil), replacement: T.unsafe(nil), insert_after: T.unsafe(nil), children: T.unsafe(nil)); end
 
-  # @api private
   def combine(action); end
-
-  # A root action has its range set to the whole source range, even
-  # though it typically do not act on that range.
-  # This method returns the action as if it was a child action with
-  # its range contracted.
-  #
-  # @api private
-  # @return [Action]
   def contract; end
-
-  # @api private
-  # @return [Boolean]
   def empty?; end
-
-  # @api private
   def insert_after; end
-
-  # @api private
   def insert_before; end
-
-  # @api private
-  # @return [Boolean]
   def insertion?; end
-
-  # No check is done on validity of resulting range.
-  #
-  # @api private
-  # @return [Action] that has been moved to the given source_buffer and with the given offset
   def moved(source_buffer, offset); end
-
-  # @api private
   def nested_actions; end
-
-  # @api private
   def ordered_replacements; end
-
-  # @api private
   def range; end
-
-  # @api private
   def replacement; end
 
   protected
 
-  # Returns the children in a hierarchy with respect to `action`:
-  #   :sibbling_left, sibbling_right (for those that are disjoint from `action`)
-  #   :parent (in case one of our children contains `action`)
-  #   :child (in case `action` strictly contains some of our children)
-  #   :fusible (in case `action` overlaps some children but they can be fused in one deletion)
-  #   or raises a `CloberingError`
-  # In case a child has equal range to `action`, it is returned as `:parent`
-  # Reminder: an empty range 1...1 is considered disjoint from 1...10
-  #
-  # @api private
   def analyse_hierarchy(action); end
-
-  # Similar to @children.bsearch_index || size
-  # except allows for a starting point
-  # and `bsearch_index` is only Ruby 2.3+
-  #
-  # @api private
   def bsearch_child_index(from = T.unsafe(nil)); end
-
-  # @api private
   def call_enforcer_for_merge(action); end
-
-  # @api private
-  # @param fusible [Array(Action | nil)]
   def check_fusible(action, *fusible); end
-
-  # @api private
   def children; end
-
-  # Assumes `more_children` all contained within `@range`
-  #
-  # @api private
   def combine_children(more_children); end
-
-  # Assumes range.contains?(action.range) && action.children.empty?
-  #
-  # @api private
   def do_combine(action); end
-
-  # @api private
   def fuse_deletions(action, fusible, other_sibblings); end
-
-  # Assumes action.range == range && action.children.empty?
-  #
-  # @api private
   def merge(action); end
-
-  # @api private
   def place_in_hierarchy(action); end
-
-  # @api private
   def swallow(children); end
-
-  # @api private
   def with(range: T.unsafe(nil), enforcer: T.unsafe(nil), children: T.unsafe(nil), insert_before: T.unsafe(nil), replacement: T.unsafe(nil), insert_after: T.unsafe(nil)); end
 end
 
@@ -4067,54 +3058,33 @@ Parser::Source::TreeRewriter::DEPRECATION_WARNING = T.let(T.unsafe(nil), String)
 # @api public
 Parser::Source::TreeRewriter::POLICY_TO_LEVEL = T.let(T.unsafe(nil), Hash)
 
-# @api public
 class Parser::StaticEnvironment
-  # @api public
   # @return [StaticEnvironment] a new instance of StaticEnvironment
   def initialize; end
 
-  # @api public
   def declare(name); end
-
-  # @api public
   def declare_anonymous_blockarg; end
-
-  # @api public
   def declare_forward_args; end
 
-  # @api public
   # @return [Boolean]
   def declared?(name); end
 
-  # @api public
   # @return [Boolean]
   def declared_anonymous_blockarg?; end
 
-  # @api public
   # @return [Boolean]
   def declared_forward_args?; end
 
-  # @api public
   # @return [Boolean]
   def empty?; end
 
-  # @api public
   def extend_dynamic; end
-
-  # @api public
   def extend_static; end
-
-  # @api public
   def reset; end
-
-  # @api public
   def unextend; end
 end
 
-# @api public
 Parser::StaticEnvironment::ANONYMOUS_BLOCKARG = T.let(T.unsafe(nil), Symbol)
-
-# @api public
 Parser::StaticEnvironment::FORWARD_ARGS = T.let(T.unsafe(nil), Symbol)
 
 # {Parser::SyntaxError} is raised whenever parser detects a syntax error,
@@ -4230,32 +3200,21 @@ class Parser::TreeRewriter < ::Parser::AST::Processor
   def wrap(range, before, after); end
 end
 
-# @api public
 Parser::VERSION = T.let(T.unsafe(nil), String)
 
-# @api public
 class Parser::VariablesStack
-  # @api public
   # @return [VariablesStack] a new instance of VariablesStack
   def initialize; end
 
-  # @api public
   def declare(name); end
 
-  # @api public
   # @return [Boolean]
   def declared?(name); end
 
-  # @api public
   # @return [Boolean]
   def empty?; end
 
-  # @api public
   def pop; end
-
-  # @api public
   def push; end
-
-  # @api public
   def reset; end
 end

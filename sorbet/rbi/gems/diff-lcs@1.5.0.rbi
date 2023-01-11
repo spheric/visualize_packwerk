@@ -561,6 +561,10 @@ class Diff::LCS::DefaultCallbacks
 
     # Called when two items match.
     def match(event); end
+
+    private
+
+    def new(*_arg0); end
   end
 end
 
@@ -860,7 +864,3 @@ end
 Diff::LCS::SequenceCallbacks = Diff::LCS::DefaultCallbacks
 
 Diff::LCS::VERSION = T.let(T.unsafe(nil), String)
-
-class Integer < ::Numeric
-  include ::JSON::Ext::Generator::GeneratorMethods::Integer
-end

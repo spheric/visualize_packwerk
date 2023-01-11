@@ -169,8 +169,8 @@ class WEBrick::BasicLog
   def format(arg); end
 end
 
-# Base TCP server class.  You must subclass GenericServer and provide a #run
-# method.
+# --
+# Updates WEBrick::GenericServer with SSL functionality
 class WEBrick::GenericServer
   # Creates a new generic server from +config+.  The default configuration
   # comes from +default+.
@@ -184,8 +184,7 @@ class WEBrick::GenericServer
   # The server configuration
   def config; end
 
-  # Adds listeners from +address+ and +port+ to the server.  See
-  # WEBrick::Utils::create_listeners for details.
+  # Updates +listen+ to enable SSL when the SSL configuration is active.
   def listen(address, port); end
 
   # Sockets listening for connections.
@@ -492,27 +491,6 @@ class WEBrick::HTTPAuth::DigestAuth
     # Used by UserDB to create a digest password entry
     def make_passwd(realm, user, pass); end
   end
-end
-
-# Struct containing the opaque portion of the digest authentication
-class WEBrick::HTTPAuth::DigestAuth::OpaqueInfo < ::Struct
-  # Sets the attribute nc
-  #
-  # @param value [Object] the value to set the attribute nc to.
-  # @return [Object] the newly set value
-  def nc=(_); end
-
-  # Sets the attribute nonce
-  #
-  # @param value [Object] the value to set the attribute nonce to.
-  # @return [Object] the newly set value
-  def nonce=(_); end
-
-  # Sets the attribute time
-  #
-  # @param value [Object] the value to set the attribute time to.
-  # @return [Object] the newly set value
-  def time=(_); end
 end
 
 # Htdigest accesses apache-compatible digest password files.  Passwords are
@@ -1041,8 +1019,7 @@ class WEBrick::HTTPResponse::ChunkedWrapper
   def write(buf); end
 end
 
-# --
-# Adds SSL functionality to WEBrick::HTTPServer
+# An HTTP Server
 class WEBrick::HTTPServer < ::WEBrick::GenericServer
   # Creates a new HTTP server according to +config+
   #

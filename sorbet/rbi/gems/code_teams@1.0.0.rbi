@@ -95,6 +95,7 @@ class CodeTeams::Plugins::Identity::IdentityStruct < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -112,7 +113,7 @@ class CodeTeams::Team
 
   # @param other [Object]
   # @return [Boolean]
-  def eql?(*args, &blk); end
+  def eql?(*args, **_arg1, &blk); end
 
   sig { returns(::Integer) }
   def hash; end

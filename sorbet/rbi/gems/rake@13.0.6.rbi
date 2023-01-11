@@ -13,9 +13,6 @@ FileList = Rake::FileList
 # This a FileUtils extension that defines several additional commands to be
 # added to the FileUtils utility functions.
 module FileUtils
-  include ::FileUtils::StreamUtils_
-  extend ::FileUtils::StreamUtils_
-
   # Run a Ruby interpreter with the given arguments.
   #
   # Example:
@@ -381,6 +378,17 @@ module Rake::DSL
 
   private
 
+  def cd(*args, **options, &block); end
+  def chdir(*args, **options, &block); end
+  def chmod(*args, **options, &block); end
+  def chmod_R(*args, **options, &block); end
+  def chown(*args, **options, &block); end
+  def chown_R(*args, **options, &block); end
+  def copy(*args, **options, &block); end
+  def cp(*args, **options, &block); end
+  def cp_lr(*args, **options, &block); end
+  def cp_r(*args, **options, &block); end
+
   # Describes the next rake task.  Duplicate descriptions are discarded.
   # Descriptions are shown with <code>rake -T</code> (up to the first
   # sentence) and <code>rake -D</code> (the entire description).
@@ -432,6 +440,18 @@ module Rake::DSL
   #   import ".depend", "my_rules"
   def import(*fns); end
 
+  def install(*args, **options, &block); end
+  def link(*args, **options, &block); end
+  def ln(*args, **options, &block); end
+  def ln_s(*args, **options, &block); end
+  def ln_sf(*args, **options, &block); end
+  def ln_sr(*args, **options, &block); end
+  def makedirs(*args, **options, &block); end
+  def mkdir(*args, **options, &block); end
+  def mkdir_p(*args, **options, &block); end
+  def mkpath(*args, **options, &block); end
+  def move(*args, **options, &block); end
+
   # Declare a task that performs its prerequisites in
   # parallel. Multitasks does *not* guarantee that its prerequisites
   # will execute in any given order (which is obvious when you think
@@ -440,6 +460,8 @@ module Rake::DSL
   # Example:
   #   multitask deploy: %w[deploy_gem deploy_rdoc]
   def multitask(*args, &block); end
+
+  def mv(*args, **options, &block); end
 
   # Create a new rake namespace and use it for evaluating the given
   # block.  Returns a NameSpace object that can be used to lookup
@@ -461,6 +483,18 @@ module Rake::DSL
   #   end
   def namespace(name = T.unsafe(nil), &block); end
 
+  def nowrite(value = T.unsafe(nil)); end
+  def rake_check_options(options, *optdecl); end
+  def rake_output_message(message); end
+  def remove(*args, **options, &block); end
+  def rm(*args, **options, &block); end
+  def rm_f(*args, **options, &block); end
+  def rm_r(*args, **options, &block); end
+  def rm_rf(*args, **options, &block); end
+  def rmdir(*args, **options, &block); end
+  def rmtree(*args, **options, &block); end
+  def ruby(*args, **options, &block); end
+
   # Declare a rule for auto-tasks.
   #
   # Example:
@@ -468,6 +502,12 @@ module Rake::DSL
   #    sh 'cc', '-o', t.name, t.source
   #  end
   def rule(*args, &block); end
+
+  def safe_ln(*args, **options); end
+  def safe_unlink(*args, **options, &block); end
+  def sh(*cmd, &block); end
+  def split_all(path); end
+  def symlink(*args, **options, &block); end
 
   # :call-seq:
   #   task(task_name)
@@ -500,6 +540,10 @@ module Rake::DSL
   #
   #   $ rake package[1.2.3]
   def task(*args, &block); end
+
+  def touch(*args, **options, &block); end
+  def verbose(value = T.unsafe(nil)); end
+  def when_writing(msg = T.unsafe(nil)); end
 end
 
 # Default Rakefile loader used by +import+.
@@ -521,6 +565,13 @@ class Rake::EarlyTime
   def <=>(other); end
 
   def to_s; end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # A FileCreationTask is a file task that when used as a dependency will be
@@ -736,6 +787,7 @@ class Rake::FileList
   def inject(*args, &block); end
   def insert(*args, &block); end
   def inspect(*args, &block); end
+  def intersect?(*args, &block); end
   def intersection(*args, &block); end
 
   # Lie about our class.
@@ -947,6 +999,7 @@ module Rake::FileUtilsExt
   def ln(*args, **options, &block); end
   def ln_s(*args, **options, &block); end
   def ln_sf(*args, **options, &block); end
+  def ln_sr(*args, **options, &block); end
   def makedirs(*args, **options, &block); end
   def mkdir(*args, **options, &block); end
   def mkdir_p(*args, **options, &block); end
@@ -1098,6 +1151,13 @@ class Rake::LateTime
 
   def <=>(other); end
   def to_s; end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # Polylithic linked list structure used to implement several data
@@ -1834,14 +1894,8 @@ class Rake::Win32::Win32HomeError < ::RuntimeError; end
 
 RakeFileUtils = Rake::FileUtilsExt
 
-# String inflections define new methods on the String class to transform names for different purposes.
-# For instance, you can figure out the name of a table from the name of a class.
-#
-#   'ScaleScore'.tableize # => "scale_scores"
 class String
   include ::Comparable
-  include ::JSON::Ext::Generator::GeneratorMethods::String
-  extend ::JSON::Ext::Generator::GeneratorMethods::String::Extend
 
   def ext(newext = T.unsafe(nil)); end
   def pathmap(spec = T.unsafe(nil), &block); end
