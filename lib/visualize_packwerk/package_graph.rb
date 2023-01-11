@@ -22,12 +22,15 @@ module VisualizePackwerk
     sig { returns(PackageGraph) }
     def self.construct
       package_nodes = Set.new
-      ParsePackwerk.all.each do |p|
+      Packs.all.each do |p|
         # We could consider ignoring the root!
         # We would also need to ignore it when parsing PackageNodes.
         # next if p.name == ParsePackwerk::ROOT_PACKAGE_NAME
         owner = CodeOwnership.for_package(p)
-        violations_by_package = p.violations.group_by(&:to_package_name).transform_values(&:count)
+
+        violations_by_package = ParsePackwerk.find(p.relative_path)
+                                             .violations.group_by(&:to_package_name)
+                                             .transform_values(&:count)
 
         package_nodes << PackageNode.new(
           name: p.name,

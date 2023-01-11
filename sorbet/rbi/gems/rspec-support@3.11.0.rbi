@@ -8,7 +8,6 @@
 # extension.
 module RSpec
   extend ::RSpec::Support::Warnings
-  extend ::RSpec::Core::Warnings
 
   class << self
     # Used to ensure examples get reloaded between multiple runs in the same
@@ -809,6 +808,7 @@ class RSpec::Support::ObjectFormatter::BaseInspector < ::Struct
     def can_inspect?(_object); end
 
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -896,6 +896,7 @@ class RSpec::Support::ObjectFormatter::InspectableItem < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -1168,9 +1169,9 @@ module RSpec::Support::WithKeywordsWhenNeeded
 
   # Remove this in RSpec 4 in favour of explictly passed in kwargs where
   # this is used. Works around a warning in Ruby 2.7
-  def class_exec(klass, *args, &block); end
+  def class_exec(klass, *args, **_arg2, &block); end
 
   class << self
-    def class_exec(klass, *args, &block); end
+    def class_exec(klass, *args, **_arg2, &block); end
   end
 end

@@ -6,9 +6,9 @@ This gem contains rake tasks to help visualize relationships between packwerk pa
 ## Building a package graph for a selection of packages
 ```ruby
 # Select the packs you want to include
-selected_packs = ParsePackwerk.all
-selected_packs = ParsePackwerk.all.select{|p| ['packs/my_pack_1', 'packs/my_pack_2'].include?(p.name) }
-selected_packs = ParsePackwerk.all.select{|p| ['Team 1', 'Team 2'].include?(CodeOwnership.for_package(p)&.name) }
+selected_packs = Packs.all
+selected_packs = Packs.all.select{|p| ['packs/my_pack_1', 'packs/my_pack_2'].include?(p.name) }
+selected_packs = Packs.all.select{|p| ['Team 1', 'Team 2'].include?(CodeOwnership.for_package(p)&.name) }
 VisualizePackwerk.package_graph!(selected_packs)
 ```
 

@@ -10,7 +10,7 @@ module RBI; end
 class RBI::ASTVisitor
   abstract!
 
-  def initialize(*args, &blk); end
+  def initialize(*args, **_arg1, &blk); end
 
   # @abstract
   sig { abstract.params(node: T.nilable(::AST::Node)).void }
@@ -1576,7 +1576,7 @@ class RBI::Scope < ::RBI::Tree
 
   abstract!
 
-  def initialize(*args, &blk); end
+  def initialize(*args, **_arg1, &blk); end
 
   sig { override.params(v: ::RBI::Printer).void }
   def accept_printer(v); end
@@ -2147,12 +2147,7 @@ class RBI::Tree < ::RBI::NodeWithComments
 
   sig { returns(T::Hash[::String, ::RBI::Node]) }
   def nodes_cache; end
-
-  sig { params(name: ::String).returns(T::Boolean) }
-  def valid_method_name?(name); end
 end
-
-RBI::Tree::SPECIAL_METHOD_NAMES = T.let(T.unsafe(nil), Array)
 
 class RBI::TreeBuilder < ::RBI::ASTVisitor
   sig do
@@ -2329,7 +2324,7 @@ end
 class RBI::Visitor
   abstract!
 
-  def initialize(*args, &blk); end
+  def initialize(*args, **_arg1, &blk); end
 
   # @abstract
   sig { abstract.params(node: T.nilable(::RBI::Node)).void }

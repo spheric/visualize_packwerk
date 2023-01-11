@@ -22,30 +22,18 @@ end
 
 class DoubleException < ::RuntimeError; end
 
-# Constants for ruby-graphviz
+# spliteType or point
 #
-# GraphViz::Constants::FORMATS: the possible output formats
-#   "bmp", "canon", "dot", "xdot", "cmap", "dia", "eps",
-#   "fig", "gd", "gd2", "gif", "gtk", "hpgl", "ico", "imap",
-#   "cmapx", "imap_np", "cmapx_np", "ismap", "jpeg", "jpg",
-#   "jpe", "mif", "mp", "pcl", "pdf", "pic", "plain",
-#   "plain-ext", "png", "ps", "ps2", "svg", "svgz", "tga",
-#   "tiff", "tif", "vml", "vmlz", "vrml", "vtx", "wbmp",
-#   "xlib", "none"
+# spline ( ';' spline )*
+# where spline =  (endp)? (startp)? point (triple)+
+# and triple   =  point point point
+# and endp  =  "e,%f,%f"
+# and startp   =  "s,%f,%f"
 #
-# GraphViz::Constants::PROGRAMS: The possible programs
-#   "dot", "neato", "twopi", "fdp", "circo"
-#
-# GraphViz::Constants::GRAPHTYPE The possible types of graph
-#   "digraph", "graph"
-#
-#
-# The single letter codes used in constructors map as follows:
-#   G => The root graph, with GRAPHATTRS
-#   E => Edge, with EDGESATTRS
-#   N => Node, with NODESATTRS
-#   S => subgraph
-#   C => cluster
+# If a spline has points p1 p2 p3 ... pn, (n = 1 (mod 3)), the points correspond
+# to the control points of a B-spline from p1 to pn. If startp is given, it touches
+# one node of the edge, and the arrowhead goes from p1 to startp. If startp is not
+# given, p1 touches a node. Similarly for pn and endp.
 class GraphViz
   include ::GraphViz::Constants
   include ::GraphViz::Utils
@@ -400,7 +388,7 @@ class GraphViz::DOTScript
   def <<(line); end
   def add_type(type, data); end
   def append(line); end
-  def end_with?(*args, &block); end
+  def end_with?(*args, **_arg1, &block); end
   def make_subgraph(name); end
   def prepend(line); end
   def to_s; end
@@ -796,7 +784,6 @@ GraphViz::Utils::Colors::RGBA = T.let(T.unsafe(nil), Regexp)
 # From : http://www.geekmade.co.uk/2008/09/ruby-tip-normalizing-hash-keys-as-symbols/
 class Hash
   include ::Enumerable
-  include ::JSON::Ext::Generator::GeneratorMethods::Hash
 
   # x = {
   #   :none => String,
@@ -816,8 +803,6 @@ end
 
 class Object < ::BasicObject
   include ::Kernel
-  include ::JSON::Ext::Generator::GeneratorMethods::Object
-  include ::PP::ObjectMixin
 
   def to_ruby; end
 end
@@ -827,8 +812,6 @@ class SplineTypeException < ::RuntimeError; end
 
 class String
   include ::Comparable
-  include ::JSON::Ext::Generator::GeneratorMethods::String
-  extend ::JSON::Ext::Generator::GeneratorMethods::String::Extend
 
   def convert_base(from, to); end
 
@@ -836,5 +819,3 @@ class String
     def random(size); end
   end
 end
-
-String::BLANK_RE = T.let(T.unsafe(nil), Regexp)
